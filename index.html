@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Nobar Film Laut Bercerita & Diskusi HAM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            900: '#0B132B',
+                            800: '#1C2541',
+                            700: '#2A3C5A',
+                            600: '#3A506B',
+                            accent: '#48CAE4',
+                            glow: '#00B4D8'
+                        },
+                        amberGold: '#E0A96D',
+                        deepAmber: '#C58842'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #060B19;
+            color: #E2E8F0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(58, 80, 107, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(72, 202, 228, 0.08) 0%, transparent 40%);
+        }
+
+        /* Glassmorphism styling */
+        .glass-panel {
+            background: rgba(28, 37, 65, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel-gold {
+            background: rgba(28, 37, 65, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 169, 109, 0.3);
+        }
+
+        /* Custom ticket stub styling */
+        .ticket-cutout-left, .ticket-cutout-right {
+            position: absolute;
+            top: 50%;
+            width: 24px;
+            height: 24px;
+            background-color: #060B19;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .ticket-cutout-left { left: -12px; }
+        .ticket-cutout-right { right: -12px; }
+
+        /* Smooth Glow Animation */
+        @keyframes subtleGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(72, 202, 228, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(72, 202, 228, 0.4); }
+        }
+        .glow-effect {
+            animation: subtleGlow 4s infinite ease-in-out;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableTicketModal, #printableTicketModal * {
+                visibility: visible;
+            }
+            #printableTicketModal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-ocean-accent selection:text-ocean-900">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300 ease-in-out max-w-sm glass-panel text-white p-4 rounded-xl border-l-4 border-ocean-accent shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <div class="text-ocean-accent text-xl" id="toastIcon">
+            <i class="fas fa-info-circle"></i>
+        </div>
+        <div>
+            <h4 class="font-semibold text-sm" id="toastTitle">Pemberitahuan</h4>
+            <p class="text-xs text-gray-300" id="toastMessage">Pesan informasi di sini.</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl flex-grow">
+        
+        <!-- Header & Branding -->
+        <header class="text-center mb-10 relative">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass-panel text-ocean-accent text-xs font-semibold uppercase tracking-wider mb-4 border border-ocean-accent/30 shadow-sm">
+                <i class="fas fa-landmark text-xs"></i> Bersama Komnas HAM
+            </div>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-100 via-teal-100 to-amberGold tracking-tight mb-3">
+                Laut Bercerita
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 font-serif italic max-w-2xl mx-auto">
+                "Matikan lampu, nyalakan kenangan."
+            </p>
+            <p class="text-xs md:text-sm text-gray-400 mt-3 max-w-2xl mx-auto leading-relaxed">
+                Pemutaran film tentang kisah perjuangan <span class="text-amberGold font-semibold">Biru Laut</span> dan kawan-kawan aktivis mahasiswa, dirangkai dengan <span class="text-ocean-accent font-semibold">Diskusi HAM dan Sejarah</span> bersama Komnas HAM.
+            </p>
+        </header>
+
+        <!-- Event Details Cards Grid -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="glass-panel p-4 rounded-2xl flex items-center space-x-3 border-l-2 border-ocean-accent">
+                <div class="w-10 h-10 rounded-xl bg-ocean-700/50 flex items-center justify-center text-ocean-accent flex-shrink-0">
+                    <i class="far fa-calendar-alt text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-gray-400 block font-medium uppercase tracking-wider">TANGGAL</span>
+                    <span class="text-xs md:text-sm font-semibold text-white">Kamis, 26 Nov 2026</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl flex items-center space-x-3 border-l-2 border-ocean-accent">
+                <div class="w-10 h-10 rounded-xl bg-ocean-700/50 flex items-center justify-center text-ocean-accent flex-shrink-0">
+                    <i class="far fa-clock text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-gray-400 block font-medium uppercase tracking-wider">WAKTU</span>
+                    <span class="text-xs md:text-sm font-semibold text-white">16:00 - 20:00 WIB</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl flex items-center space-x-3 border-l-2 border-amberGold">
+                <div class="w-10 h-10 rounded-xl bg-ocean-700/50 flex items-center justify-center text-amberGold flex-shrink-0">
+                    <i class="fas fa-map-marker-alt text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-gray-400 block font-medium uppercase tracking-wider">LOKASI</span>
+                    <span class="text-xs md:text-sm font-semibold text-white leading-tight block">Metropole XXI Cikini</span>
+                    <span class="text-[10px] text-gray-400">Jl. Pegangsaan Timur No.21, Menteng</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-2xl flex items-center space-x-3 border-l-2 border-green-400">
+                <div class="w-10 h-10 rounded-xl bg-ocean-700/50 flex items-center justify-center text-green-400 flex-shrink-0">
+                    <i class="fas fa-ticket-alt text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-gray-400 block font-medium uppercase tracking-wider">BIAYA REGISTRASI</span>
+                    <span class="text-xs md:text-sm font-bold text-green-400 uppercase tracking-wide block">FREE ADMISSION</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Quota Notice Banner -->
+        <div class="glass-panel p-4 rounded-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-4 border border-ocean-600/40">
+            <div class="flex items-center space-x-3">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </span>
+                <div>
+                    <h3 class="text-sm font-semibold text-white">Kuota Tiket Terbatas!</h3>
+                    <p class="text-xs text-gray-400">1 Nama hanya dapat mendaftar untuk 1 tiket. Pendaftaran ditutup otomatis jika kuota penuh.</p>
+                </div>
+            </div>
+            <div class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-ocean-800/80 border border-ocean-600 text-amberGold flex items-center gap-1.5">
+                <i class="fas fa-user-check text-ocean-accent"></i>
+                <span>Ketentuan: 1 Pendaftar = 1 Tiket</span>
+            </div>
+        </div>
+
+        <!-- Google Sheets Webhook Drawer Control -->
+        <div class="mb-8 glass-panel p-4 rounded-2xl border border-teal-500/30 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-green-600/30 text-green-400 flex items-center justify-center border border-green-500/40 flex-shrink-0">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Integrasi Data Google Sheets</h4>
+                    <p class="text-[11px] text-gray-400" id="sheetStatusText">Status: <span class="text-amberGold font-medium">Mode Simulasi Client (Klik Atur Webhook untuk mengaktifkan)</span></p>
+                </div>
+            </div>
+            <button type="button" onclick="toggleSheetConfig()" class="text-xs px-3.5 py-1.5 rounded-xl bg-ocean-700 hover:bg-ocean-600 border border-ocean-500/40 text-ocean-accent font-semibold transition flex items-center space-x-1.5">
+                <i class="fas fa-cog"></i>
+                <span>Atur Webhook Google Sheets</span>
+            </button>
+        </div>
+
+        <!-- Google Sheets Config Collapsible Box -->
+        <div id="sheetConfigBox" class="hidden mb-8 glass-panel p-5 rounded-2xl border border-amberGold/40 bg-ocean-900/90 space-y-3">
+            <h4 class="text-sm font-bold text-amberGold flex items-center gap-2">
+                <i class="fas fa-link"></i> Hubungkan ke Google Sheets Panitia
+            </h4>
+            <p class="text-xs text-gray-300 leading-relaxed">
+                Masukkan Web App URL dari <strong>Google Apps Script</strong> untuk menyimpan data pendaftar secara otomatis & real-time di Spreadsheet Anda.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="url" id="googleScriptUrl" placeholder="https://script.google.com/macros/s/.../exec"
+                    class="flex-1 px-3 py-2 rounded-xl bg-ocean-800 border border-ocean-600 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-ocean-accent">
+                <button type="button" onclick="saveSheetUrl()" class="px-4 py-2 rounded-xl bg-ocean-accent text-ocean-900 font-bold text-xs hover:opacity-90 transition">
+                    Simpan & Aktifkan
+                </button>
+            </div>
+            <div class="text-[11px] text-gray-400 bg-ocean-950 p-3 rounded-xl border border-ocean-800">
+                <span class="font-bold text-gray-200">Panduan Pengaturan Google Apps Script:</span>
+                <ol class="list-decimal list-inside space-y-0.5 mt-1 text-gray-400">
+                    <li>Buka Google Sheets ➔ Klik <strong>Extensions (Ekstensi) > Apps Script</strong>.</li>
+                    <li>Copas kode handler `doPost(e)` (file `google_apps_script.js`) lalu klik <strong>Deploy > New deployment</strong>.</li>
+                    <li>Pilih tipe <strong>Web App</strong>, atur <em>Who has access</em> ke <strong>Anyone</strong>. Salin URL-nya dan tempel di atas.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Main Form & Live Preview Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Form Container (7 Cols) -->
+            <div class="lg:col-span-7">
+                <div class="glass-panel p-6 md:p-8 rounded-3xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-6 pb-4 border-b border-ocean-700/50">
+                        <div>
+                            <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fas fa-edit text-ocean-accent"></i> Formulir Pendaftaran Nobar
+                            </h2>
+                            <p class="text-xs text-gray-400 mt-0.5">Isi data diri untuk klaim tiket Nobar Film & Diskusi HAM</p>
+                        </div>
+                        <span class="text-[10px] bg-green-500/20 text-green-400 px-3 py-1 rounded-full font-mono border border-green-500/30 font-bold">1 NAMA = 1 TIKET</span>
+                    </div>
+
+                    <form id="ticketingForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                        
+                        <!-- Nama Lengkap -->
+                        <div>
+                            <label for="fullName" class="block text-xs font-medium text-gray-300 mb-1.5 uppercase tracking-wider">
+                                NAMA LENGKAP <span class="text-red-400">*</span>
+                            </label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                                    <i class="far fa-user"></i>
+                                </span>
+                                <input type="text" id="fullName" required placeholder="Sesuai Kartu Identitas / KTP"
+                                    class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-ocean-900/80 border border-ocean-600/60 text-white placeholder-gray-500 focus:outline-none focus:border-ocean-accent focus:ring-1 focus:ring-ocean-accent text-sm transition"
+                                    oninput="updateTicketPreview()">
+                            </div>
+                        </div>
+
+                        <!-- Email & WhatsApp Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-xs font-medium text-gray-300 mb-1.5 uppercase tracking-wider">
+                                    EMAIL AKTIF <span class="text-red-400">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                                        <i class="far fa-envelope"></i>
+                                    </span>
+                                    <input type="email" id="email" required placeholder="nama@email.com"
+                                        class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-ocean-900/80 border border-ocean-600/60 text-white placeholder-gray-500 focus:outline-none focus:border-ocean-accent focus:ring-1 focus:ring-ocean-accent text-sm transition">
+                                </div>
+                            </div>
+
+                            <!-- WhatsApp -->
+                            <div>
+                                <label for="phone" class="block text-xs font-medium text-gray-300 mb-1.5 uppercase tracking-wider">
+                                    NOMOR WHATSAPP <span class="text-red-400">*</span>
+                                </label>
+                                <div class="relative">
+                                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                                        <i class="fab fa-whatsapp text-green-400"></i>
+                                    </span>
+                                    <input type="tel" id="phone" required placeholder="081234567890"
+                                        class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-ocean-900/80 border border-ocean-600/60 text-white placeholder-gray-500 focus:outline-none focus:border-ocean-accent focus:ring-1 focus:ring-ocean-accent text-sm transition">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rangkaian Acara (Fixed) -->
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1.5 uppercase tracking-wider">
+                                RANGKAIAN ACARA
+                            </label>
+                            <div class="p-3 rounded-xl bg-ocean-900/90 border border-ocean-600/60 text-xs text-gray-200 flex items-center justify-between">
+                                <span class="font-medium text-amberGold">Pemutaran Film & Diskusi HAM bersama Komnas HAM</span>
+                                <span class="text-[11px] text-gray-400 font-mono">16.00 - 20.00 WIB</span>
+                            </div>
+                        </div>
+
+                        <!-- Pertanyaan Novel -->
+                        <div>
+                            <label class="block text-xs font-medium text-gray-300 mb-1.5 uppercase tracking-wider">
+                                APAKAH KAMU SUDAH MEMBACA NOVEL LAUT BERCERITA?
+                            </label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="readStatus" value="Sudah Tamat" checked class="peer hidden">
+                                    <div class="py-2.5 px-3 rounded-xl bg-ocean-900/60 border border-ocean-600/40 text-center text-xs font-medium text-gray-400 peer-checked:border-ocean-accent peer-checked:bg-ocean-accent/10 peer-checked:text-white transition">
+                                        📖 Sudah Tamat
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="readStatus" value="Belum Baca" class="peer hidden">
+                                    <div class="py-2.5 px-3 rounded-xl bg-ocean-900/60 border border-ocean-600/40 text-center text-xs font-medium text-gray-400 peer-checked:border-ocean-accent peer-checked:bg-ocean-accent/10 peer-checked:text-white transition">
+                                        🎬 Belum (Baru mau nonton)
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Commitment Disclaimer Checkbox -->
+                        <div class="p-4 rounded-xl bg-ocean-900/90 border border-amberGold/30 space-y-2">
+                            <label class="flex items-start space-x-3 cursor-pointer">
+                                <input type="checkbox" id="commitmentCheck" required class="mt-1 w-4 h-4 rounded text-ocean-accent focus:ring-ocean-accent bg-ocean-800 border-gray-600">
+                                <span class="text-xs text-gray-300 leading-relaxed">
+                                    <strong class="text-amberGold">Komitmen Kehadiran:</strong> Karena tiket ini <strong class="text-green-400">GRATIS</strong> dan kuota terbatas, saya berjanji akan hadir tepat waktu dan tidak membiarkan kursi kosong. <span class="text-red-400">*</span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button type="submit" id="submitBtn" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-ocean-accent via-teal-400 to-amberGold text-ocean-900 font-bold text-sm tracking-wider uppercase hover:opacity-95 transition-all shadow-lg shadow-ocean-accent/20 flex items-center justify-center space-x-2">
+                                <span>Klaim Tiket Gratis Sekarang</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Live Preview Ticket Container (5 Cols) -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                            <i class="fas fa-eye text-ocean-accent mr-1"></i> Pratinjau E-Ticket
+                        </span>
+                        <span class="text-[10px] bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded font-mono font-bold">1 PESERTA = 1 KURSI</span>
+                    </div>
+
+                    <!-- Visual Card Mockup -->
+                    <div class="glass-panel-gold rounded-3xl p-6 relative overflow-hidden shadow-2xl glow-effect">
+                        <!-- Cutout dots left right -->
+                        <div class="ticket-cutout-left"></div>
+                        <div class="ticket-cutout-right"></div>
+
+                        <!-- Header Film -->
+                        <div class="border-b border-gray-700/60 pb-4 mb-4 flex justify-between items-start">
+                            <div>
+                                <h3 class="font-serif font-bold text-lg text-white">LAUT BERCERITA</h3>
+                                <p class="text-[11px] text-amberGold font-mono">Nobar & Diskusi HAM (Komnas HAM)</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-gray-400 block font-mono">KODE TIKET</span>
+                                <span class="text-xs font-mono font-bold text-ocean-accent" id="previewTicketId">LAUT-2026-8492</span>
+                            </div>
+                        </div>
+
+                        <!-- Content Details Dynamic -->
+                        <div class="space-y-3 mb-6">
+                            <div>
+                                <span class="text-[10px] text-gray-400 uppercase font-semibold block">Pemegang Tiket</span>
+                                <span class="text-base font-bold text-white tracking-wide block truncate" id="previewName">
+                                    [Nama Lengkap Anda]
+                                </span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2 pt-2 text-xs">
+                                <div>
+                                    <span class="text-[10px] text-gray-400 uppercase block">Jumlah Kursi</span>
+                                    <span class="font-medium text-green-400">1 Tiket (FREE)</span>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-gray-400 uppercase block">Rangkaian Acara</span>
+                                    <span class="font-medium text-gray-200 truncate block">Nobar & Diskusi HAM</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Divider Line -->
+                        <div class="border-t border-dashed border-gray-600/80 my-4 relative"></div>
+
+                        <!-- Time & Footer Barcode Fake -->
+                        <div class="flex items-center justify-between pt-1">
+                            <div>
+                                <p class="text-[11px] text-gray-300 font-medium">Metropole XXI Cikini</p>
+                                <p class="text-[10px] text-gray-400">Kamis, 26 Nov 2026 (16:00 WIB)</p>
+                            </div>
+                            <!-- Mock QR code -->
+                            <div class="w-12 h-12 bg-white p-1 rounded-md flex items-center justify-center">
+                                <i class="fas fa-qrcode text-2xl text-ocean-900"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-ocean-800 bg-ocean-900/40 py-6 mt-12 text-center text-xs text-gray-500">
+        <div class="container mx-auto px-4">
+            <p>© 2026 Panitia Nobar Film Laut Bercerita & Komnas HAM. All rights reserved.</p>
+            <p class="mt-1 text-gray-600">Diselenggarakan untuk memperingati kebenaran & ingatan HAM yang tak pernah tenggelam.</p>
+        </div>
+    </footer>
+
+
+    <!-- ================= SUCCESS E-TICKET MODAL ================= -->
+    <div id="ticketModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="relative w-full max-w-xl glass-panel-gold rounded-3xl p-6 md:p-8 shadow-2xl border border-amberGold/50 max-h-[90vh] overflow-y-auto" id="printableTicketModal">
+            
+            <!-- Close Button -->
+            <button type="button" onclick="closeModal()" class="no-print absolute top-4 right-4 w-8 h-8 rounded-full bg-ocean-800 text-gray-400 hover:text-white flex items-center justify-center transition">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Success Badge -->
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 rounded-full bg-green-500/20 text-green-400 border border-green-500/40 flex items-center justify-center mx-auto mb-3 text-2xl">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 class="text-2xl font-serif font-bold text-white">Registrasi Berhasil!</h3>
+                <p class="text-xs text-gray-300 mt-1">E-Ticket Nobar & Diskusi HAM Komnas HAM Anda telah terbit.</p>
+            </div>
+
+            <!-- Ticket Card Design inside Modal -->
+            <div class="bg-gradient-to-b from-ocean-800 to-ocean-900 rounded-2xl p-6 border border-ocean-600/60 relative overflow-hidden mb-6">
+                <div class="flex justify-between items-start pb-4 border-b border-gray-700">
+                    <div>
+                        <span class="text-[10px] bg-green-500/20 text-green-400 px-2.5 py-0.5 rounded-full font-semibold border border-green-500/30">CONFIRMED</span>
+                        <h4 class="font-serif text-xl font-bold text-white mt-2">LAUT BERCERITA</h4>
+                        <p class="text-xs text-amberGold font-mono">Nobar & Diskusi HAM (Komnas HAM)</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-gray-400 block font-mono">KODE TIKET</span>
+                        <span class="text-sm font-mono font-bold text-ocean-accent" id="modalTicketCode">LB-9981</span>
+                    </div>
+                </div>
+
+                <!-- Detail Grid -->
+                <div class="grid grid-cols-2 gap-4 my-5 text-sm">
+                    <div>
+                        <span class="text-xs text-gray-400 block">Nama Peserta</span>
+                        <span class="font-semibold text-white block truncate" id="modalName">-</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 block">Jumlah Kursi</span>
+                        <span class="font-semibold text-green-400 block">1 Tiket (FREE)</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 block">Tanggal & Waktu</span>
+                        <span class="font-medium text-gray-200 block text-xs">Kamis, 26 Nov 2026 (16:00 - 20:00 WIB)</span>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400 block">Lokasi Bioskop</span>
+                        <span class="font-medium text-gray-200 block text-xs">Metropole XXI Cikini</span>
+                    </div>
+                </div>
+
+                <!-- QR Code & Verification info -->
+                <div class="bg-ocean-900/90 p-4 rounded-xl flex items-center justify-between border border-ocean-700">
+                    <div class="space-y-1">
+                        <p class="text-xs font-semibold text-white">Tunjukkan QR Code ini</p>
+                        <p class="text-[10px] text-gray-400">Scan di meja registrasi Komnas HAM 30 menit sebelum acara.</p>
+                    </div>
+                    <div class="bg-white p-2 rounded-lg text-center flex-shrink-0">
+                        <img id="modalQrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=LB-9981" alt="QR Code" class="w-16 h-16">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="no-print grid grid-cols-1 md:grid-cols-2 gap-3">
+                <button type="button" onclick="downloadOrPrintTicket()" class="py-3 px-4 rounded-xl bg-ocean-700 hover:bg-ocean-600 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition border border-ocean-500/50">
+                    <i class="fas fa-download"></i>
+                    <span>Cetak / Simpan Tiket</span>
+                </button>
+                <button type="button" onclick="shareToWhatsApp()" class="py-3 px-4 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition shadow-lg shadow-green-600/20">
+                    <i class="fab fa-whatsapp text-lg"></i>
+                    <span>Kirim Konfirmasi WA</span>
+                </button>
+            </div>
+            
+            <p class="no-print text-[11px] text-center text-gray-400 mt-4">
+                Simpan atau screenshot e-ticket ini untuk verifikasi masuk lokasi.
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global Variables
+        let googleWebAppUrl = "";
+        let generatedTicketId = "LAUT-2026-" + Math.floor(1000 + Math.random() * 9000);
+
+        // On DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateTicketPreview();
+            document.getElementById('previewTicketId').innerText = generatedTicketId;
+        });
+
+        // Toggle Google Sheet Config Drawer
+        function toggleSheetConfig() {
+            const configBox = document.getElementById('sheetConfigBox');
+            if (configBox) {
+                configBox.classList.toggle('hidden');
+            }
+        }
+
+        // Save Google Webhook URL
+        function saveSheetUrl() {
+            const inputUrl = document.getElementById('https://script.google.com/macros/s/AKfycby3ItpFe18VJZxhf6JXnUI3RMS1Vr0lEofjqF1yUOu_vXvBQp1QYnjIybfbvzj2sdkH/exec').value.trim();
+            if (!inputUrl) {
+                showToast("URL Kosong", "Silakan masukkan Web App URL Google Script.", "fa-exclamation-circle");
+                return;
+            }
+            https://script.google.com/macros/s/AKfycby3ItpFe18VJZxhf6JXnUI3RMS1Vr0lEofjqF1yUOu_vXvBQp1QYnjIybfbvzj2sdkH/exec = inputUrl;
+            document.getElementById('sheetStatusText').innerHTML = `Status: <span class="text-green-400 font-bold">Terhubung ke Google Sheets</span>`;
+            document.getElementById('sheetConfigBox').classList.add('hidden');
+            showToast("Google Sheets Terhubung!", "Data pendaftar akan otomatis disinkronkan ke Spreadsheet.", "fa-check-circle");
+        }
+
+        // Real-time Update Preview Ticket Card
+        function updateTicketPreview() {
+            const nameInput = document.getElementById('fullName').value;
+            document.getElementById('previewName').innerText = nameInput.trim() !== '' ? nameInput : '[Nama Lengkap Anda]';
+        }
+
+        // Handle Form Submit
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const readStatus = document.querySelector('input[name="readStatus"]:checked').value;
+            const commitmentCheck = document.getElementById('commitmentCheck').checked;
+
+            if (!fullName || !email || !phone) {
+                showToast("Data Tidak Lengkap", "Mohon isi semua bidang wajib.", "fa-exclamation-circle");
+                return;
+            }
+
+            if (!commitmentCheck) {
+                showToast("Komitmen Diperlukan", "Harap centang persetujuan komitmen hadir.", "fa-exclamation-circle");
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> <span>Menerbitkan E-Ticket & Menyimpan Data...</span>`;
+
+            // Payload 1 Nama = 1 Tiket
+            const registrationPayload = {
+                ticketCode: generatedTicketId,
+                fullName: fullName,
+                email: email,
+                phone: phone,
+                ticketCount: 1,
+                readStatus: readStatus,
+                registeredAt: new Date().toLocaleString("id-ID")
+            };
+
+            // Send to Google Sheets if URL configured
+            if (googleWebAppUrl) {
+                try {
+                    await fetch(googleWebAppUrl, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(registrationPayload)
+                    });
+                } catch (err) {
+                    console.warn("Google Sheet sync notice:", err);
+                }
+            }
+
+            setTimeout(() => {
+                // Populate Modal Data
+                document.getElementById('modalTicketCode').innerText = generatedTicketId;
+                document.getElementById('modalName').innerText = fullName;
+
+                // QR code Generator
+                const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${generatedTicketId}-${encodeURIComponent(fullName)}`;
+                document.getElementById('modalQrImage').src = qrUrl;
+
+                // Reset Button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>Klaim Tiket Gratis Sekarang</span> <i class="fas fa-arrow-right"></i>`;
+
+                // Show Modal
+                openModal();
+                showToast("Berhasil!", "E-Ticket Nobar Gratis berhasil diterbitkan & tersimpan.", "fa-check-circle");
+            }, 1000);
+        }
+
+        // Modal Controls
+        function openModal() {
+            document.getElementById('ticketModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('ticketModal').classList.add('hidden');
+        }
+
+        // Download / Print Action
+        function downloadOrPrintTicket() {
+            window.print();
+        }
+
+        // WhatsApp Share Action
+        function shareToWhatsApp() {
+            const ticketCode = generatedTicketId;
+            const name = document.getElementById('fullName').value.trim();
+            
+            const message = `Halo Panitia Nobar Laut Bercerita! 👋%0A%0ASaya sudah mendaftar nobar di Metropole XXI Cikini.%0A- *Kode Tiket:* ${ticketCode}%0A- *Nama Pendaftar:* ${name}%0A- *Jumlah Tiket:* 1 Tiket%0A%0AMohon verifikasi tiket saya. Terima kasih!`;
+            
+            const waUrl = `https://wa.me/?text=${message}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Toast Helper
+        function showToast(title, message, iconClass = 'fa-info-circle') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = message;
+            document.getElementById('toastIcon').innerHTML = `<i class="fas ${iconClass}"></i>`;
+
+            toast.classList.remove('translate-x-full');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
