@@ -521,13 +521,23 @@
     <!-- JavaScript Application Logic -->
     <script>
         // Global Variables
-        let googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzll0CzbjQqx8HzbhpZQyJeuCbrdhQLu6oaz-8nd8-R_JfAaCe2A3K5hliBjTXuUIrihg/exec";
+        // Opsional: Isi URL di bawah ini jika ingin menanamkan URL Apps Script secara permanen di file HTML
+        let googleWebAppUrl = "https://script.google.com/macros/s/AKfycbxv2DxZ9Uz_uEgSvKbL_nC_jnhW1WofpXrbMEVRtYIErAOWwZnCofvQDRkIBsTUuM5VvQ/exec"; 
         let generatedTicketId = "LAUT-2026-" + Math.floor(1000 + Math.random() * 9000);
 
-        // On DOM Load
+        // On DOM Load - Cek simpanan URL di localStorage
         window.addEventListener('DOMContentLoaded', () => {
             updateTicketPreview();
             document.getElementById('previewTicketId').innerText = generatedTicketId;
+
+            // Baca Webhook URL dari penyimpanan lokal browser jika ada
+            const savedUrl = localStorage.getItem('googleWebAppUrl');
+            if (savedUrl) {
+                googleWebAppUrl = savedUrl;
+                const inputElement = document.getElementById('googleScriptUrl');
+                if (inputElement) inputElement.value = savedUrl;
+                document.getElementById('sheetStatusText').innerHTML = `Status: <span class="text-green-400 font-bold">Terhubung ke Google Sheets (Tersimpan)</span>`;
+            }
         });
 
         // Toggle Google Sheet Config Drawer
@@ -538,7 +548,7 @@
             }
         }
 
-        // Save Google Webhook URL
+        // Save Google Webhook URL ke Memory & localStorage Browser
         function saveSheetUrl() {
             const inputUrl = document.getElementById('googleScriptUrl').value.trim();
             if (!inputUrl) {
@@ -546,9 +556,13 @@
                 return;
             }
             googleWebAppUrl = inputUrl;
+            
+            // Simpan permanen di browser lokal
+            localStorage.setItem('googleWebAppUrl', inputUrl);
+
             document.getElementById('sheetStatusText').innerHTML = `Status: <span class="text-green-400 font-bold">Terhubung ke Google Sheets</span>`;
             document.getElementById('sheetConfigBox').classList.add('hidden');
-            showToast("Google Sheets Terhubung!", "Data pendaftar akan otomatis disinkronkan ke Spreadsheet.", "fa-check-circle");
+            showToast("Google Sheets Terhubung!", "URL berhasil disimpan di browser & data akan tersinkron otomatis.", "fa-check-circle");
         }
 
         // Real-time Update Preview Ticket Card
