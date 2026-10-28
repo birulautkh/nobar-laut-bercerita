@@ -540,12 +540,12 @@
 
         // Save Google Webhook URL
         function saveSheetUrl() {
-            const inputUrl = document.getElementById('https://script.google.com/macros/s/AKfycby3ItpFe18VJZxhf6JXnUI3RMS1Vr0lEofjqF1yUOu_vXvBQp1QYnjIybfbvzj2sdkH/exec').value.trim();
+            const inputUrl = document.getElementById('googleScriptUrl').value.trim();
             if (!inputUrl) {
                 showToast("URL Kosong", "Silakan masukkan Web App URL Google Script.", "fa-exclamation-circle");
                 return;
             }
-            https://script.google.com/macros/s/AKfycby3ItpFe18VJZxhf6JXnUI3RMS1Vr0lEofjqF1yUOu_vXvBQp1QYnjIybfbvzj2sdkH/exec = inputUrl;
+            googleWebAppUrl = inputUrl;
             document.getElementById('sheetStatusText').innerHTML = `Status: <span class="text-green-400 font-bold">Terhubung ke Google Sheets</span>`;
             document.getElementById('sheetConfigBox').classList.add('hidden');
             showToast("Google Sheets Terhubung!", "Data pendaftar akan otomatis disinkronkan ke Spreadsheet.", "fa-check-circle");
