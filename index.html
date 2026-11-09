@@ -1,367 +1,297 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrasi Nobar Film Laut Bercerita & Diskusi HAM - Komnas HAM</title>
-  <style>
-    /* Reset & Base Styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    body {
-      background-color: #0b1325;
-      color: #f1f5f9;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-    .container {
-      width: 100%;
-      max-width: 640px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    /* Card Styling */
-    .card {
-      background-color: #111c35;
-      border: 1px solid #1e2d4a;
-      border-radius: 1rem;
-      padding: 1.75rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Badge & Typography */
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background-color: rgba(13, 148, 136, 0.2);
-      border: 1px solid #0d9488;
-      border-radius: 9999px;
-      color: #2dd4bf;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
-    }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.3;
-    }
-    .highlight {
-      color: #2dd4bf;
-      font-style: italic;
-    }
-    .subtitle {
-      color: #94a3b8;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-
-    /* Info Grid */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
-      padding-top: 1rem;
-      border-top: 1px solid #1e2d4a;
-      font-size: 0.875rem;
-      color: #cbd5e1;
-    }
-    @media (min-width: 640px) {
-      .info-grid { grid-template-columns: 1fr 1fr; }
-      .info-full { grid-column: span 2; }
-    }
-
-    /* Step Timeline */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-    }
-    @media (min-width: 640px) {
-      .steps-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    .step-box {
-      background-color: rgba(15, 23, 42, 0.6);
-      border: 1px solid #1e293b;
-      padding: 0.75rem;
-      border-radius: 0.75rem;
-      font-size: 0.75rem;
-    }
-    .step-active {
-      background-color: rgba(13, 148, 136, 0.15);
-      border-color: #0d9488;
-    }
-    .step-title {
-      font-weight: 700;
-      color: #94a3b8;
-      margin-bottom: 0.25rem;
-    }
-    .step-active .step-title { color: #2dd4bf; }
-
-    /* Form Elements */
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-    @media (min-width: 640px) {
-      .form-row { grid-template-columns: 1fr 1fr; }
-    }
-    label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #cbd5e1;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    input, select {
-      width: 100%;
-      background-color: #0f172a;
-      border: 1px solid #1e2d4a;
-      border-radius: 0.75rem;
-      padding: 0.75rem 1rem;
-      color: #ffffff;
-      font-size: 0.875rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    input:focus, select:focus {
-      border-color: #0d9488;
-    }
-    .hidden { display: none; }
-
-    /* Button */
-    .btn-submit {
-      width: 100%;
-      background-color: #0d9488;
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.875rem 1.5rem;
-      border: none;
-      border-radius: 0.75rem;
-      cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
-      margin-top: 0.5rem;
-    }
-    .btn-submit:hover {
-      background-color: #0f766e;
-    }
-    .btn-submit:disabled {
-      background-color: #475569;
-      cursor: not-allowed;
-    }
-    .warning-text {
-      color: #fbbf24;
-      font-size: 0.75rem;
-      margin-top: 0.75rem;
-    }
-    .footer {
-      text-align: center;
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-top: 1rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Nobar Laut Bercerita - Komnas HAM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0a1128',      // Deep Navy
+                            teal: '#005f73',      // Ocean Teal
+                            card: '#112240',      // Navy Card background
+                            gold: '#e9c46a',      // Soft Gold
+                            hover: '#d4af37',     // Darker Gold for hover
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a1128;
+            color: #f8fafc;
+            background-image: radial-gradient(circle at top, #005f73 0%, #0a1128 100%);
+        }
+        /* Custom radio button styling */
+        input[type="radio"]:checked {
+            accent-color: #e9c46a;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
 
-  <div class="container">
-    
-    <!-- Banner Header -->
-    <div class="card">
-      <span class="badge">Road to Hari HAM 2026</span>
-      <h1>Nonton Bareng Film <span class="highlight">Laut Bercerita</span> & Diskusi Sejarah & HAM</h1>
-      <p class="subtitle">Diselenggarakan oleh Komisi Nasional Hak Asasi Manusia (Komnas HAM)</p>
-      
-      <div class="info-grid">
-        <div>📅 <strong>Kamis, 26 November 2026</strong></div>
-        <div>⏰ <strong>16.00 - 20.00 WIB</strong></div>
-        <div class="info-full">📍 <strong>Epicentrum XXI, Rasuna Said, Jakarta Selatan</strong></div>
-      </div>
+    <div class="max-w-4xl w-full mx-auto space-y-12 my-8">
+        
+        <!-- Header & Hero Section -->
+        <header class="text-center space-y-4">
+            <div class="inline-block px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold text-sm font-semibold tracking-wider uppercase mb-2 border border-brand-gold/30">
+                Road to Hari HAM 2026
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white">
+                Nobar Film <span class="text-brand-gold">Laut Bercerita</span>
+            </h1>
+            <p class="text-xl text-slate-300 font-light">
+                & Diskusi Sejarah dan Hak Asasi Manusia bersama Komnas HAM
+            </p>
+        </header>
+
+        <!-- Event Details Card -->
+        <div class="bg-brand-card/80 backdrop-blur-sm border border-brand-teal/50 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row gap-6 justify-around shadow-2xl shadow-black/50">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-brand-navy rounded-lg text-brand-gold shadow-[0_0_10px_rgba(233,196,106,0.15)]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-brand-teal">Tanggal</p>
+                    <p class="font-semibold text-slate-100">Kamis, 26 Nov 2026</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-brand-navy rounded-lg text-brand-gold shadow-[0_0_10px_rgba(233,196,106,0.15)]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-brand-teal">Waktu</p>
+                    <p class="font-semibold text-slate-100">16.00 - 20.00 WIB</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-brand-navy rounded-lg text-brand-gold shadow-[0_0_10px_rgba(233,196,106,0.15)]">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+                <div>
+                    <p class="text-sm text-brand-teal">Tempat</p>
+                    <p class="font-semibold text-slate-100">Epicentrum XXI</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flow Section -->
+        <section class="space-y-6">
+            <h2 class="text-2xl font-semibold text-center text-brand-gold">Alur Pendaftaran</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Step 1 -->
+                <div class="bg-brand-teal/20 border border-brand-teal/50 p-5 rounded-xl relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-6xl font-bold text-brand-gold/10">1</div>
+                    <h3 class="font-medium text-brand-gold mb-2">Registrasi</h3>
+                    <p class="text-sm text-slate-300">Isi formulir di web ini (saat ini Anda sedang di sini).</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-brand-navy/60 border border-brand-teal/20 p-5 rounded-xl relative overflow-hidden shadow-lg">
+                    <div class="absolute -right-4 -top-4 text-6xl font-bold text-brand-teal/20">2</div>
+                    <h3 class="font-medium text-white mb-2">Menunggu Konfirmasi</h3>
+                    <p class="text-sm text-slate-400">Panitia akan memverifikasi data pendaftar.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-brand-navy/60 border border-brand-teal/20 p-5 rounded-xl relative overflow-hidden shadow-lg">
+                    <div class="absolute -right-4 -top-4 text-6xl font-bold text-brand-teal/20">3</div>
+                    <h3 class="font-medium text-white mb-2">Terima e-Tiket</h3>
+                    <p class="text-sm text-slate-400">E-tiket dibagikan bagi pendaftar yang konfirmasi hadir.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-brand-navy/60 border border-brand-teal/20 p-5 rounded-xl relative overflow-hidden shadow-lg">
+                    <div class="absolute -right-4 -top-4 text-6xl font-bold text-brand-teal/20">4</div>
+                    <h3 class="font-medium text-white mb-2">Penukaran Tiket</h3>
+                    <p class="text-sm text-slate-400">Tukarkan nomor registrasi dengan tiket gratis di lokasi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form Section -->
+        <section id="registration" class="bg-brand-card border border-brand-teal/30 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            
+            <div class="bg-brand-gold/10 border-l-4 border-brand-gold p-4 mb-8 rounded-r-lg">
+                <p class="text-brand-gold text-sm font-medium">
+                    <strong class="text-white">Perhatian:</strong> Seat sangat terbatas! 1 (satu) orang pendaftar hanya berhak mendapatkan 1 (satu) tiket.
+                </p>
+            </div>
+
+            <!-- Success Message (Hidden by default) -->
+            <div id="successMessage" class="hidden text-center py-10">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-teal/20 text-brand-teal mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-brand-gold mb-2">Registrasi Berhasil!</h3>
+                <p class="text-slate-300">Terima kasih telah mendaftar, Mohon tunggu email dan whatsapp dari panitia untuk penukaran tiketnya. Salam Kemanusiaan</p>
+            </div>
+
+            <!-- Form -->
+            <form id="regForm" class="space-y-6">
+                
+                <div class="space-y-2">
+                    <label for="nama" class="block text-sm font-medium text-slate-200">Nama Lengkap <span class="text-brand-gold">*</span></label>
+                    <input type="text" id="nama" name="Nama" required 
+                        class="w-full bg-brand-navy border border-brand-teal/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all placeholder-slate-500"
+                        placeholder="Masukkan nama lengkap Anda">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-medium text-slate-200">Alamat Email <span class="text-brand-gold">*</span></label>
+                        <input type="email" id="email" name="Email" required 
+                            class="w-full bg-brand-navy border border-brand-teal/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all placeholder-slate-500"
+                            placeholder="nama@email.com">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="whatsapp" class="block text-sm font-medium text-slate-200">Nomor WhatsApp <span class="text-brand-gold">*</span></label>
+                        <input type="tel" id="whatsapp" name="WhatsApp" required 
+                            class="w-full bg-brand-navy border border-brand-teal/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all placeholder-slate-500"
+                            placeholder="081234567890">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="asal" class="block text-sm font-medium text-slate-200">Asal Instansi/Lembaga <span class="text-brand-gold">*</span></label>
+                    <select id="asal" name="Asal" required 
+                        class="w-full bg-brand-navy border border-brand-teal/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all appearance-none">
+                        <option value="" disabled selected class="text-slate-500">Pilih salah satu...</option>
+                        <option value="Instansi Pemerintah">Instansi Pemerintah</option>
+                        <option value="Lembaga">Lembaga Swasta/Negara</option>
+                        <option value="Universitas">Universitas / Akademisi</option>
+                        <option value="NGO">NGO / LSM</option>
+                        <option value="Komunitas">Komunitas</option>
+                        <option value="Umum">Umum</option>
+                    </select>
+                </div>
+
+                <!-- Dynamic Input Container (Hidden by default) -->
+                <div id="dynamicInputContainer" class="space-y-2 hidden">
+                    <label id="dynamicLabel" for="detailAsal" class="block text-sm font-medium text-slate-200">Detail Asal <span class="text-brand-gold">*</span></label>
+                    <input type="text" id="detailAsal" name="Detail_Asal" 
+                        class="w-full bg-brand-navy border border-brand-teal/50 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent transition-all placeholder-slate-500"
+                        placeholder="Masukkan detail">
+                </div>
+
+                <div class="space-y-3">
+                    <label class="block text-sm font-medium text-slate-200">Sudah membaca novel Laut Bercerita? <span class="text-brand-gold">*</span></label>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <label class="flex items-center gap-3 p-3 border border-brand-teal/50 rounded-lg cursor-pointer hover:bg-brand-navy transition-colors">
+                            <input type="radio" name="BacaNovel" value="Sudah" required class="w-5 h-5 text-brand-gold bg-brand-navy border-brand-teal focus:ring-brand-gold">
+                            <span class="text-slate-200">Sudah membaca</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border border-brand-teal/50 rounded-lg cursor-pointer hover:bg-brand-navy transition-colors">
+                            <input type="radio" name="BacaNovel" value="Belum" required class="w-5 h-5 text-brand-gold bg-brand-navy border-brand-teal focus:ring-brand-gold">
+                            <span class="text-slate-200">Belum membaca</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-brand-teal/30">
+                    <button type="submit" id="submitBtn" 
+                        class="w-full bg-brand-gold hover:bg-brand-hover text-brand-navy font-bold py-4 rounded-lg shadow-[0_0_15px_rgba(233,196,106,0.4)] transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-brand-gold/50 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex justify-center items-center gap-2">
+                        <span>Kirim Pendaftaran</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <footer class="text-center text-brand-teal text-sm pb-8">
+            &copy; 2026 Komisi Nasional Hak Asasi Manusia (Komnas HAM). Hak Cipta Dilindungi.
+        </footer>
     </div>
 
-    <!-- Alur Registrasi -->
-    <div class="card">
-      <div style="font-size: 0.75rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 0.75rem;">
-        Alur Pendaftaran E-Tiket Gratis
-      </div>
-      <div class="steps-grid">
-        <div class="step-box step-active">
-          <div class="step-title">Langkah 1</div>
-          <div style="color: #ffffff; font-weight: 600;">Registrasi Web</div>
-          <div style="color: #2dd4bf; font-size: 0.65rem; margin-top: 2px;">Anda di sini</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Langkah 2</div>
-          <div style="color: #cbd5e1;">Konfirmasi</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Langkah 3</div>
-          <div style="color: #cbd5e1;">Distribusi E-Tiket</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Langkah 4</div>
-          <div style="color: #cbd5e1;">Penukaran Tiket</div>
-        </div>
-      </div>
-      <div class="warning-text">⚠️ Seat terbatas 100 orang. Satu pendaftar hanya berhak 1 tiket.</div>
-    </div>
+    <script>
+        // Logika Dropdown Dinamis
+        const asalSelect = document.getElementById('asal');
+        const dynamicContainer = document.getElementById('dynamicInputContainer');
+        const dynamicLabel = document.getElementById('dynamicLabel');
+        const dynamicInput = document.getElementById('detailAsal');
 
-    <!-- Form Registrasi -->
-    <form id="registrationForm" class="card">
-      
-      <div class="form-group">
-        <label for="nama">Nama Lengkap *</label>
-        <input type="text" id="nama" required placeholder="Masukkan nama lengkap sesuai identitas">
-      </div>
+        const labelMapping = {
+            'Instansi Pemerintah': { label: 'Nama Instansi', placeholder: 'Masukkan Nama Instansi' },
+            'Lembaga': { label: 'Nama Lembaga', placeholder: 'Masukkan Nama Lembaga' },
+            'Universitas': { label: 'Asal Universitas', placeholder: 'Masukkan Asal Universitas' },
+            'NGO': { label: 'Nama NGO', placeholder: 'Masukkan Nama NGO' },
+            'Komunitas': { label: 'Nama Komunitas', placeholder: 'Masukkan Nama Komunitas' },
+            'Umum': { label: 'Asal Kota', placeholder: 'Masukkan Asal Kota' }
+        };
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" required placeholder="contoh@email.com">
-        </div>
-        <div class="form-group">
-          <label for="whatsapp">Nomor WhatsApp *</label>
-          <input type="tel" id="whatsapp" required placeholder="081234567890">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="instansi">Kategori Asal *</label>
-        <select id="instansi" required>
-          <option value="" disabled selected>-- Pilih Kategori --</option>
-          <option value="Instansi">Instansi Pemerintah</option>
-          <option value="Lembaga">Lembaga</option>
-          <option value="Universitas">Universitas / Akademisi</option>
-          <option value="NGO">NGO / LSM</option>
-          <option value="Komunitas">Komunitas</option>
-          <option value="Umum">Masyarakat Umum</option>
-        </select>
-      </div>
-
-      <div id="dynamicContainer" class="form-group hidden">
-        <label id="dynamicLabel" for="detail_asal">Detail Asal *</label>
-        <input type="text" id="detail_asal" placeholder="">
-      </div>
-
-      <div class="form-group">
-        <label for="baca_novel">Apakah Anda Sudah Membaca Novel "Laut Bercerita"? *</label>
-        <select id="baca_novel" required>
-          <option value="" disabled selected>-- Pilih Status --</option>
-          <option value="Sudah">Sudah Membaca</option>
-          <option value="Belum">Belum Membaca</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
-
-    </form>
-    
-    <div class="footer">
-      &copy; 2026 Komisi Nasional Hak Asasi Manusia (Komnas HAM)
-    </div>
-
-  </div>
-
-  <!-- JavaScript Logika Pengiriman Data & Dropdown -->
-  <script>
-    const instansiSelect = document.getElementById('instansi');
-    const dynamicContainer = document.getElementById('dynamicContainer');
-    const dynamicLabel = document.getElementById('dynamicLabel');
-    const detailAsalInput = document.getElementById('detail_asal');
-
-    const configDinamis = {
-      'Instansi': { label: 'Nama Instansi *', placeholder: 'Contoh: Kementerian Hukum / Komnas HAM' },
-      'Lembaga': { label: 'Nama Lembaga *', placeholder: 'Contoh: Lembaga Bantuan Hukum' },
-      'Universitas': { label: 'Asal Universitas / Kampus *', placeholder: 'Contoh: Universitas Indonesia / UIN Jakarta' },
-      'NGO': { label: 'Nama NGO / Organisasi *', placeholder: 'Contoh: KontraS / YLBHI' },
-      'Komunitas': { label: 'Nama Komunitas *', placeholder: 'Contoh: Komunitas Film Jakarta' },
-      'Umum': { label: 'Asal Kota *', placeholder: 'Contoh: Jakarta Selatan / Depok' }
-    };
-
-    instansiSelect.addEventListener('change', function() {
-      const selectedValue = this.value;
-      if (configDinamis[selectedValue]) {
-        dynamicLabel.textContent = configDinamis[selectedValue].label;
-        detailAsalInput.placeholder = configDinamis[selectedValue].placeholder;
-        detailAsalInput.required = true;
-        dynamicContainer.classList.remove('hidden');
-      } else {
-        dynamicContainer.classList.add('hidden');
-        detailAsalInput.required = false;
-        detailAsalInput.value = '';
-      }
-    });
-
-    const form = document.getElementById('registrationForm');
-    
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerText;
-      
-      submitBtn.innerText = 'Mengirim Pendaftaran...';
-      submitBtn.disabled = true;
-
-      // MASUKKAN LINK GOOGLE APPS SCRIPT (/exec) DI SINI
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbzkMlT9a68fSok9sZwWq4AaEhZ0NZcRl-eoIKS8PrmarlYtMqOKLH6YsH6467iwwkKCgg/exec';
-
-      const getVal = (id) => {
-        const el = document.getElementById(id);
-        return el ? el.value : '-';
-      };
-
-      const formData = new FormData();
-      formData.append('nama', getVal('nama'));
-      formData.append('email', getVal('email'));
-      formData.append('whatsapp', getVal('whatsapp'));
-      formData.append('kategori', getVal('instansi'));
-      formData.append('detail_asal', getVal('detail_asal'));
-      formData.append('baca_novel', getVal('baca_novel'));
-
-      fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => response.json())
-        .then(data => {
-          alert(data.message);
-          if (data.result === 'success') {
-            form.reset();
-            dynamicContainer.classList.add('hidden');
-          }
-          submitBtn.innerText = originalText;
-          submitBtn.disabled = false;
-        })
-        .catch(error => {
-          alert('Gagal mengirim data. Pastikan link Apps Script sudah benar dan jaringan internet lancar.');
-          console.error('Error:', error);
-          submitBtn.innerText = originalText;
-          submitBtn.disabled = false;
+        asalSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            if (labelMapping[selectedValue]) {
+                dynamicLabel.innerHTML = `${labelMapping[selectedValue].label} <span class="text-brand-gold">*</span>`;
+                dynamicInput.placeholder = labelMapping[selectedValue].placeholder;
+                dynamicInput.required = true;
+                dynamicContainer.classList.remove('hidden');
+            } else {
+                dynamicContainer.classList.add('hidden');
+                dynamicInput.required = false;
+                dynamicInput.value = ''; // Reset isian
+            }
         });
-    });
-  </script>
 
+        document.getElementById('regForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Ubah state tombol menjadi loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-brand-navy" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sedang mengirim...`;
+
+            // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwGu_Ts8MKfi-efWFuMil7koRDAVSAbjVYDDJFQr_lk2ubxPr7Mm6HAampnls_5U_3-YA/exec'; 
+
+            // Mapping data agar sesuai dengan Apps Script sebelumnya
+            const formData = new FormData();
+            formData.append('nama', document.getElementById('nama').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('whatsapp', document.getElementById('whatsapp').value);
+            formData.append('kategori', document.getElementById('asal').value);
+            
+            const detailAsal = document.getElementById('detailAsal');
+            formData.append('detail_asal', detailAsal && !dynamicContainer.classList.contains('hidden') ? detailAsal.value : '-');
+            
+            const bacaNovel = document.querySelector('input[name="BacaNovel"]:checked');
+            formData.append('baca_novel', bacaNovel ? bacaNovel.value : '');
+            
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        // Sembunyikan form dan tampilkan pesan sukses di UI
+                        form.classList.add('hidden');
+                        const successMsg = document.getElementById('successMessage');
+                        successMsg.querySelector('p').innerText = data.message;
+                        successMsg.classList.remove('hidden');
+                    } else {
+                        // Tampilkan pesan error jika kuota penuh atau nama dobel
+                        alert(data.message);
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Terjadi kesalahan saat mengirim data. Pastikan link Apps Script sudah benar.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                });
+        });
+    </script>
 </body>
-</html>
+</html>  
