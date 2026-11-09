@@ -266,22 +266,12 @@
             ========================================================== */
             
             // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwNeHcJ0s7Pf5k0H_fMaxET29DvRpmzZZTh63ycmbMfGZ8gqIpPLup4l9tCGjbZX5GsBg/exec'; 
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxx4GFmtmH0pQEnKzBL7NKTKhcWf5Y2UVPkpSQWle9Uh0k0JYmfXwc3zBFwPq2fOofy8g/exec'; 
             
             // =========================================================
             // SIMULASI PENGIRIMAN (Karena URL asli belum ada)
             // =========================================================
-            // Hapus blok setTimeout di bawah ini dan gunakan fetch(...) saat akan dideploy live
-            
-            setTimeout(() => {
-                form.classList.add('hidden');
-                document.getElementById('successMessage').classList.remove('hidden');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-                form.reset();
-            }, 1500);
-
-            
+            // Hapus blok setTimeout di bawah ini dan gunakan fetch(...) saat akan dideploy live           
             // =========================================================
             // KODE ASLI UNTUK FETCH (Uncomment kode di bawah jika sudah ada scriptURL)
             // =========================================================
@@ -301,7 +291,7 @@
     submitBtn.innerText = 'Mengirim data...';
 
     // Ganti dengan URL dari langkah 3
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwNeHcJ0s7Pf5k0H_fMaxET29DvRpmzZZTh63ycmbMfGZ8gqIpPLup4l9tCGjbZX5GsBg/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxx4GFmtmH0pQEnKzBL7NKTKhcWf5Y2UVPkpSQWle9Uh0k0JYmfXwc3zBFwPq2fOofy8g/exec';
     
     // Siapkan data yang akan dikirim (Pastikan ID input sesuai dengan HTML Anda)
     const formData = new FormData();
