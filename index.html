@@ -266,26 +266,18 @@
             ========================================================== */
             
             // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL'; 
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx8-HXCDJewzs9GDpnUR1SAEL4okyKPDX_7pLOVeoDwUgmqaX200zScyQKo3K55eB17-A/exec'; 
             
             // =========================================================
             // SIMULASI PENGIRIMAN (Karena URL asli belum ada)
             // =========================================================
             // Hapus blok setTimeout di bawah ini dan gunakan fetch(...) saat akan dideploy live
             
-            setTimeout(() => {
-                form.classList.add('hidden');
-                document.getElementById('successMessage').classList.remove('hidden');
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-                form.reset();
-            }, 1500);
-
             
             // =========================================================
             // KODE ASLI UNTUK FETCH (Uncomment kode di bawah jika sudah ada scriptURL)
             // =========================================================
-            /*
+            
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
                     form.classList.add('hidden');
@@ -300,7 +292,7 @@
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnText;
                 });
-            */
+
         });
     </script>
 </body>
