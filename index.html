@@ -253,30 +253,53 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-brand-navy" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sedang mengirim...`;
 
-            // Mengambil data form
-            const formData = new FormData(form);
+            </script>
             
-            /* =========================================================
-               BAGIAN INTEGRASI GOOGLE SHEETS (GOOGLE APPS SCRIPT)
-               1. Buat Google Sheet baru
-               2. Extensions > Apps Script
-               3. Masukkan kode doGet/doPost untuk menerima data
-               4. Deploy sebagai Web App (Anyone can access)
-               5. Copy URL-nya dan paste ke variabel scriptURL di bawah ini
-            ========================================================== */
-            
-            // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbx-4KMPfxXYashCPO4BiyLWpzw-kiDsiKKhTr7QK02V39fCcaMfepF8QzUJ-V70lqe-uA/exec'; 
-            
-            // =========================================================
-            // SIMULASI PENGIRIMAN (Karena URL asli belum ada)
-            // =========================================================
-            // Hapus blok setTimeout di bawah ini dan gunakan fetch(...) saat akan dideploy live
-            
-            
-            // =========================================================
-            // KODE ASLI UNTUK FETCH (Uncomment kode di bawah jika sudah ada scriptURL)
-            // =========================================================
+            <script>
+    const form = document.getElementById('registrationForm');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerText;
+      submitBtn.innerText = 'Mengirim...';
+      submitBtn.disabled = true;
+
+      // PASTE LINK GOOGLE APPS SCRIPT BERAKHIRAN /exec DI SINI
+      const scriptURL = 'PASTE_LINK_PANJANG_TADI_DISINI';
+
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : '-';
+      };
+
+      const formData = new FormData();
+      formData.append('nama', getVal('nama'));
+      formData.append('email', getVal('email'));
+      formData.append('whatsapp', getVal('whatsapp'));
+      formData.append('kategori', getVal('instansi'));
+      formData.append('detail_asal', getVal('detail_asal'));
+      formData.append('baca_novel', getVal('baca_novel'));
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message);
+          if (data.result === 'success') {
+            form.reset();
+          }
+          submitBtn.innerText = originalText;
+          submitBtn.disabled = false;
+        })
+        .catch(error => {
+          alert('Gagal mengirim data. Pastikan koneksi lancar dan URL Web App Apps Script sudah benar.');
+          console.error('Error:', error);
+          submitBtn.innerText = originalText;
+          submitBtn.disabled = false;
+        });
+    });
+  
             
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
