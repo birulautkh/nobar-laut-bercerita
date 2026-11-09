@@ -132,4 +132,113 @@
 
       <!-- Input Dinamis (Muncul Berdasarkan Dropdown) -->
       <div id="dynamicContainer" class="hidden">
-        <label id="dynamicLabel" for="detail_asal" class="block text-xs font-medium text-slate-300 uppercase
+        <label id="dynamicLabel" for="detail_asal" class="block text-xs font-medium text-slate-300 uppercase tracking-wider mb-2">Detail Asal *</label>
+        <input type="text" id="detail_asal" placeholder="" 
+          class="w-full bg-slate-900 border border-ocean rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-teal-500 transition">
+      </div>
+
+      <!-- status novel -->
+      <div>
+        <label for="baca_novel" class="block text-xs font-medium text-slate-300 uppercase tracking-wider mb-2">Apakah Anda Sudah Membaca Novel "Laut Bercerita"? *</label>
+        <select id="baca_novel" required 
+          class="w-full bg-slate-900 border border-ocean rounded-xl px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-teal-500 transition">
+          <option value="" disabled selected>-- Pilih Status --</option>
+          <option value="Sudah">Sudah Membaca</option>
+          <option value="Belum">Belum Membaca</option>
+        </select>
+      </div>
+
+      <button type="submit" 
+        class="w-full bg-teal-accent font-semibold text-white py-3.5 px-6 rounded-xl shadow-lg hover:shadow-teal-500/20 transition duration-200 mt-4">
+        Kirim Pendaftaran
+      </button>
+
+    </form>
+    
+    <div class="text-center text-xs text-slate-500">
+      &copy; 2026 Komisi Nasional Hak Asasi Manusia (Komnas HAM)
+    </div>
+
+  </div>
+
+  <!-- SCRIPT INTEGRASI & DROPDOWN DINAMIS -->
+  <script>
+    // 1. LOGIKA DROPDOWN DINAMIS
+    const instansiSelect = document.getElementById('instansi');
+    const dynamicContainer = document.getElementById('dynamicContainer');
+    const dynamicLabel = document.getElementById('dynamicLabel');
+    const detailAsalInput = document.getElementById('detail_asal');
+
+    const configDinamis = {
+      'Instansi': { label: 'Nama Instansi *', placeholder: 'Contoh: Kementerian Hukum / Komnas HAM' },
+      'Lembaga': { label: 'Nama Lembaga *', placeholder: 'Contoh: Lembaga Bantuan Hukum' },
+      'Universitas': { label: 'Asal Universitas / Kampus *', placeholder: 'Contoh: Universitas Indonesia / UIN Jakarta' },
+      'NGO': { label: 'Nama NGO / Organisasi *', placeholder: 'Contoh: KontraS / YLBHI' },
+      'Komunitas': { label: 'Nama Komunitas *', placeholder: 'Contoh: Komunitas Film Jakarta' },
+      'Umum': { label: 'Asal Kota *', placeholder: 'Contoh: Jakarta Selatan / Depok' }
+    };
+
+    instansiSelect.addEventListener('change', function() {
+      const selectedValue = this.value;
+      if (configDinamis[selectedValue]) {
+        dynamicLabel.textContent = configDinamis[selectedValue].label;
+        detailAsalInput.placeholder = configDinamis[selectedValue].placeholder;
+        detailAsalInput.required = true;
+        dynamicContainer.classList.remove('hidden');
+      } else {
+        dynamicContainer.classList.add('hidden');
+        detailAsalInput.required = false;
+        detailAsalInput.value = '';
+      }
+    });
+
+    // 2. LOGIKA PENGIRIMAN DATA KE GOOGLE APPS SCRIPT
+    const form = document.getElementById('registrationForm');
+    
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerText;
+      
+      submitBtn.innerText = 'Mengirim Pendaftaran...';
+      submitBtn.disabled = true;
+
+      // ISI LINK GOOGLE APPS SCRIPT BERAKHIRAN /exec DI BAWAH INI
+      const scriptURL = 'PASTE_LINK_PANJANG_APPS_SCRIPT_DISINI';
+
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : '-';
+      };
+
+      const formData = new FormData();
+      formData.append('nama', getVal('nama'));
+      formData.append('email', getVal('email'));
+      formData.append('whatsapp', getVal('whatsapp'));
+      formData.append('kategori', getVal('instansi'));
+      formData.append('detail_asal', getVal('detail_asal'));
+      formData.append('baca_novel', getVal('baca_novel'));
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message);
+          if (data.result === 'success') {
+            form.reset();
+            dynamicContainer.classList.add('hidden');
+          }
+          submitBtn.innerText = originalText;
+          submitBtn.disabled = false;
+        })
+        .catch(error => {
+          alert('Gagal mengirim data. Pastikan link Apps Script sudah benar dan jaringan internet lancar.');
+          console.error('Error:', error);
+          submitBtn.innerText = originalText;
+          submitBtn.disabled = false;
+        });
+    });
+  </script>
+
+</body>
+</html>
