@@ -266,69 +266,42 @@
             ========================================================== */
             
             // GANTI URL DI BAWAH INI DENGAN URL WEB APP GOOGLE APPS SCRIPT ANDA
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxx4GFmtmH0pQEnKzBL7NKTKhcWf5Y2UVPkpSQWle9Uh0k0JYmfXwc3zBFwPq2fOofy8g/exec'; 
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL'; 
             
             // =========================================================
             // SIMULASI PENGIRIMAN (Karena URL asli belum ada)
             // =========================================================
-            // Hapus blok setTimeout di bawah ini dan gunakan fetch(...) saat akan dideploy live           
+            // Hapus blok setTimeout di bawah ini dan gunakan fetch(...) saat akan dideploy live
+            
+            setTimeout(() => {
+                form.classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                form.reset();
+            }, 1500);
+
+            
             // =========================================================
             // KODE ASLI UNTUK FETCH (Uncomment kode di bawah jika sudah ada scriptURL)
             // =========================================================
-
-  // Pastikan ID form Anda sesuai
-  const form = document.getElementById('registrationForm');
-  
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Ambil elemen tombol
-    const submitBtn = document.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerText;
-    
-    // Ubah state tombol saat proses
-    submitBtn.disabled = true;
-    submitBtn.innerText = 'Mengirim data...';
-
-    // Ganti dengan URL dari langkah 3
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxx4GFmtmH0pQEnKzBL7NKTKhcWf5Y2UVPkpSQWle9Uh0k0JYmfXwc3zBFwPq2fOofy8g/exec';
-    
-    // Siapkan data yang akan dikirim (Pastikan ID input sesuai dengan HTML Anda)
-    const formData = new FormData();
-    formData.append('nama', document.getElementById('nama').value);
-    formData.append('email', document.getElementById('email').value);
-    formData.append('whatsapp', document.getElementById('whatsapp').value);
-    formData.append('kategori', document.getElementById('instansi').value);
-    
-    // Ambil detail instansi/kota
-    const detailAsalInput = document.getElementById('detail_asal');
-    formData.append('detail_asal', detailAsalInput ? detailAsalInput.value : '-');
-    
-    formData.append('baca_novel', document.getElementById('baca_novel').value);
-
-    // Kirim data
-    fetch(scriptURL, { method: 'POST', body: formData })
-      .then(response => response.json())
-      .then(data => {
-        submitBtn.disabled = false;
-        submitBtn.innerText = originalText;
-        
-        if (data.result === 'success') {
-          // Menampilkan pesan sukses yang diatur dari backend
-          alert(data.message);
-          form.reset(); // Kosongkan form setelah sukses
-        } else {
-          // Menampilkan pesan error (Nama double / Kuota habis)
-          alert(data.message);
-        }
-      })
-      .catch(error => {
-        submitBtn.disabled = false;
-        submitBtn.innerText = originalText;
-        alert('Gagal terhubung ke server. Silakan cek koneksi internet Anda dan coba lagi.');
-        console.error('Error!', error.message);
-      });
-  });
-</script>
+            /*
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    form.classList.add('hidden');
+                    document.getElementById('successMessage').classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('Terjadi kesalahan saat mengirim data. Silakan coba lagi.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                });
+            */
+        });
+    </script>
 </body>
 </html>
