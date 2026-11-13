@@ -276,12 +276,18 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.result === 'success') {
-                        // Sembunyikan form dan tampilkan pesan sukses di UI
+                        // 1. Sembunyikan form
                         form.classList.add('hidden');
-                        const successMsg = successMsg.querySelector('p').innerText = data.message;
-                        successMsg.classList.remove('hidden');
+                        
+                        // 2. Masukkan nomor urut ke tulisan LB-000
+                        document.getElementById('nomorRegistrasiDisplay').innerText = data.nomor_registrasi;
+                        
+                        // 3. Tampilkan kotaknya (HANYA HAPUS CLASS HIDDEN, JANGAN DI-INNERHTML)
+                        document.getElementById('successMessage').classList.remove('hidden');
+                        
+                        form.reset();
                     } else {
-                        // Tampilkan pesan error jika kuota penuh atau nama dobel
+                        // Kalau gagal (kuota habis / WA ganda), baru munculkan pesan error
                         alert(data.message);
                     }
                     submitBtn.disabled = false;
@@ -289,7 +295,7 @@
                 })
                 .catch(error => {
                     console.error('Error!', error.message);
-                    alert('Terjadi kesalahan saat mengirim data. Pastikan link Apps Script sudah benar.');
+                    alert('Terjadi kesalahan saat mengirim data.');
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnText;
                 });
