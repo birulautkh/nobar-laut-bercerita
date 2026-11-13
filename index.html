@@ -278,8 +278,7 @@
                     if (data.result === 'success') {
                         // Sembunyikan form dan tampilkan pesan sukses di UI
                         form.classList.add('hidden');
-                        const successMsg = document.getElementById('successMessage');
-                        successMsg.querySelector('p').innerText = data.message;
+                        const successMsg = successMsg.querySelector('p').innerText = data.message;
                         successMsg.classList.remove('hidden');
                     } else {
                         // Tampilkan pesan error jika kuota penuh atau nama dobel
