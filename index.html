@@ -48,10 +48,10 @@
                 Road to Hari HAM 2026
             </div>
             <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white">
-                Nobar Film <span class="text-brand-gold">Laut Bercerita</span>
+                Nobar dan Diskusi Film<span class="text-brand-gold">Laut Bercerita</span>
             </h1>
             <p class="text-xl text-slate-300 font-light">
-                & Diskusi Sejarah dan Hak Asasi Manusia bersama Komnas HAM
+                bersama Komnas HAM
             </p>
         </header>
 
@@ -201,6 +201,11 @@
                 </div>
 
                 <div class="pt-4 border-t border-brand-teal/30">
+                    <!-- Kolom Honeypot (Jebakan Bot - Disembunyikan dari manusia) -->
+            <div style="display:none;" aria-hidden="true">
+                <label for="website_check">Jangan isi kolom ini:</label>
+                <input type="text" id="website_check" name="website_check" autocomplete="off" tabindex="-1">
+            </div>
                     <button type="submit" id="submitBtn" 
                         class="w-full bg-brand-gold hover:bg-brand-hover text-brand-navy font-bold py-4 rounded-lg shadow-[0_0_15px_rgba(233,196,106,0.4)] transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-brand-gold/50 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex justify-center items-center gap-2">
                         <span>Kirim Pendaftaran</span>
@@ -247,6 +252,14 @@
 
         document.getElementById('regForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            // --- CEK HONEYPOT (PENGAMAN SPAM) ---
+    const botCheck = document.getElementById('website_check').value;
+    if (botCheck !== "") {
+        // Jika kolom jebakan terisi, batalkan pengiriman secara diam-diam (ini ulah bot)
+        console.log("Aktivitas bot terdeteksi.");
+        return; 
+    }
+    // -------------------------------------
             
             const form = this;
             const submitBtn = document.getElementById('submitBtn');
