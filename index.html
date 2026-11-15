@@ -187,20 +187,7 @@
                         placeholder="Masukkan detail">
                 </div>
 
-                <div class="space-y-3">
-                    <label class="block text-sm font-medium text-slate-200">Sudah membaca novel Laut Bercerita? <span class="text-brand-gold">*</span></label>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <label class="flex items-center gap-3 p-3 border border-brand-teal/50 rounded-lg cursor-pointer hover:bg-brand-navy transition-colors">
-                            <input type="radio" name="BacaNovel" value="Sudah" required class="w-5 h-5 text-brand-gold bg-brand-navy border-brand-teal focus:ring-brand-gold">
-                            <span class="text-slate-200">Sudah membaca</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 border border-brand-teal/50 rounded-lg cursor-pointer hover:bg-brand-navy transition-colors">
-                            <input type="radio" name="BacaNovel" value="Belum" required class="w-5 h-5 text-brand-gold bg-brand-navy border-brand-teal focus:ring-brand-gold">
-                            <span class="text-slate-200">Belum membaca</span>
-                        </label>
-                    </div>
-                </div>
-
+    
                 <div class="pt-4 border-t border-brand-teal/30">
                     <!-- Kolom Honeypot (Jebakan Bot - Disembunyikan dari manusia) -->
             <div style="display:none;" aria-hidden="true">
@@ -283,8 +270,6 @@
             const detailAsal = document.getElementById('detailAsal');
             formData.append('detail_asal', detailAsal && !dynamicContainer.classList.contains('hidden') ? detailAsal.value : '-');
             
-            const bacaNovel = document.querySelector('input[name="BacaNovel"]:checked');
-            formData.append('baca_novel', bacaNovel ? bacaNovel.value : '');
             
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.json())
